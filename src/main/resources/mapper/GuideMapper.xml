@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyg.smt.mapper.GuideMapper">
+
+    <select id="getAllGuide" resultType="java.util.Map">
+        select guide.*,(SELECT count(*) from guide) as count
+        from guide
+    </select>
+    <select id="getGuideById" resultType="com.zyg.smt.model.Guide">
+        select * from guide where guide.g_id=#{id};
+    </select>
+    <update id="editGuide" parameterType="com.zyg.smt.model.Guide">
+        update guide set g_title=#{g_title},g_content=#{g_content},
+                         g_addTime=#{g_addTime},g_updateTime=#{g_updateTime},g_views=#{g_views}
+        where g_id=#{g_id}
+    </update>
+    <delete id="deleteGuideById">
+        delete from guide where g_id=#{id}
+    </delete>
+    <insert id="addGuide" parameterType="com.zyg.smt.model.Guide">
+        insert into guide (g_title, g_content, g_addTime, g_updateTime, g_views)
+        VALUES (#{g_title},#{g_content},#{g_addTime},#{g_updateTime},#{g_views})
+    </insert>
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyg.smt.mapper.NotesMapper">
+
+    <select id="getAllNotes" resultType="java.util.Map">
+        select notes.*,(SELECT count(*) from notes) as count
+        from notes
+    </select>
+
+    <delete id="deleteNotesById">
+        delete from notes   where t_id=#{id}
+    </delete>
+
+    <select id="selectNotesById" resultType="com.zyg.smt.model.Notes">
+        select * from notes where t_id=#{id}
+    </select>
+
+
+    <update id="editNotes" parameterType="com.zyg.smt.model.Notes">
+        update notes set t_title=#{t_title},t_content=#{t_content},t_updateTime=#{t_updateTime} where t_id=#{t_id}
+    </update>
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyg.smt.mapper.RouteMapper">
+    <select id="getAllRoute" resultType="java.util.Map">
+        select routeinfo.*,(SELECT count(*) from routeinfo) as count
+        from routeinfo
+    </select>
+
+    <delete id="deleteRouteById">
+        delete from routeinfo where ri_id=#{id}
+    </delete>
+
+
+    <insert id="addRoute" parameterType="com.zyg.smt.model.RouteInfo">
+        insert into routeinfo (ri_name, ri_content, ri_note, ri_type, ri_collect, ri_views)
+        VALUES (#{ri_name},#{ri_content},#{ri_note},#{ri_type},#{ri_collect},#{ri_views})
+    </insert>
+
+    <select id="selectRouteById" resultType="com.zyg.smt.model.RouteInfo">
+        select * from routeinfo where ri_id=#{id}
+    </select>
+
+
+    <update id="editRoute" parameterType="com.zyg.smt.model.RouteInfo">
+        update routeinfo set ri_name=#{ri_name}, ri_type=#{ri_type}
+        ,ri_views=#{ri_views},ri_collect=#{ri_collect},ri_content=#{ri_content},ri_note=#{ri_note} where ri_id=#{ri_id}
+    </update>
+
+</mapper>

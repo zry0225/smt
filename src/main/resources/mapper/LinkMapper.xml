@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyg.smt.mapper.LinkMapper">
+    <select id="getAllLink" resultType="java.util.Map">
+        select link.*,(SELECT count(*) from link) as count
+        from link
+    </select>
+
+    <delete id="deleteLinkById">
+        delete from link where l_id=#{id}
+    </delete>
+
+
+    <insert id="addLink" parameterType="com.zyg.smt.model.Link">
+        insert into link (l_webName, l_url, l_addTime)
+        VALUES (#{l_webName},#{l_url},#{l_addTime})
+    </insert>
+
+    <select id="selectLinkById" resultType="com.zyg.smt.model.Link">
+        select * from link where l_id=#{id}
+    </select>
+
+
+    <update id="editLink" parameterType="com.zyg.smt.model.Link">
+        update link set l_webName=#{l_webName},l_url=#{l_url},l_addTime=#{l_addTime} where l_id=#{l_id}
+    </update>
+
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyg.smt.mapper.PowerMpper">
+    <select id="show" resultType="java.util.Map">
+        select user.*,(SELECT count(*) from user) as count
+        from user
+    </select>
+<select id="getone" resultType="com.zyg.smt.model.User">
+    select * from user where u_id=#{id}
+</select>
+    <update id="editPower" parameterType="com.zyg.smt.model.User">
+        update user set u_name=#{u_name},u_state=#{u_state},u_power=#{u_power}
+        where u_id=#{u_id}
+    </update>
+</mapper>

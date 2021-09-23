@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyg.smt.mapper.AnalysisMapper">
+<select id="getrRepeatedsex" resultType="java.util.Map">
+    select u_sex,count(*) as count from user group by u_sex;
+</select>
+    <select id="getrRepeatedAge" resultType="java.util.Map">
+        SELECT
+        u_age,
+        count(*) AS count
+        FROM
+        (
+        SELECT
+        CASE
+        WHEN u_age &gt;0
+        AND u_age &lt;= 11 THEN
+        '0-10'
+        WHEN u_age &gt;= 11
+        AND u_age &lt;= 20 THEN
+        '11-20'
+        WHEN u_age &gt;= 21
+        AND u_age &lt;= 30 THEN
+        '21-30'
+        WHEN u_age &gt;= 31
+        AND u_age &lt;= 40 THEN
+        '31-40'
+        WHEN u_age &gt;= 41
+            AND u_age &lt;= 50 THEN
+            '41-50'
+        WHEN u_age &gt;= 61
+            AND u_age &lt;= 70 THEN
+            '61-70'
+        WHEN u_age &gt;= 71
+             THEN
+            '大于70'
+        END AS u_age
+        FROM
+        user
+
+        ) a
+        GROUP BY
+        u_age
+    </select>
+</mapper>

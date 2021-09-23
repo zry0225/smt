@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyg.smt.mapper.AnnounceMapper">
+    <select id="getAllannounce" resultType="java.util.Map">
+        select announcement.*,(SELECT count(*) from announcement) as count
+        from announcement
+    </select>
+
+    <delete id="deleteAnnounceById">
+        delete from announcement where ac_id=#{id}
+    </delete>
+
+
+    <insert id="addAnnounce" parameterType="com.zyg.smt.model.Announcement">
+        insert into announcement (ac_title, ac_context, ac_mainImg, ac_addTime,
+                                  ac_alter, ac_likes, ac_views, ac_author)
+        VALUES (#{ac_title},#{ac_context},#{ac_mainImg},#{ac_addTime},#{ac_alter},#{ac_likes},#{ac_views},#{ac_author})
+    </insert>
+
+    <select id="selectAnnounceById" resultType="com.zyg.smt.model.Announcement">
+        select * from announcement where ac_id=#{id}
+    </select>
+
+
+    <update id="editAnnounce" parameterType="com.zyg.smt.model.Announcement">
+        update announcement set ac_title=#{ac_title},ac_context=#{ac_context},ac_mainImg=#{ac_mainImg},ac_alter=#{ac_alter},
+                               ac_likes=#{ac_likes},ac_views=#{ac_views},ac_author=#{ac_author} where ac_id=#{ac_id}
+    </update>
+</mapper>

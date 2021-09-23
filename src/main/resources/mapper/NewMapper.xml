@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyg.smt.mapper.NewMapper">
+
+    <select id="getAllNew" resultType="java.util.Map">
+        select news.*,(SELECT count(*) from news) as count
+        from news
+    </select>
+
+    <delete id="deleteNewById">
+        delete from news where n_id=#{id}
+    </delete>
+
+    <insert id="addNews" parameterType="com.zyg.smt.model.News">
+        insert into news (n_title, n_content, n_mainImg,
+                          n_addTime, n_alter, n_likes, n_views, n_author)
+        VALUES (#{n_title},#{n_content},#{n_mainImg},#{n_addTime},#{n_alter},
+                #{n_likes},#{n_views},#{n_author})
+    </insert>
+
+    <select id="toEditNewById" resultType="com.zyg.smt.model.News">
+        select * from news where n_id=#{id}
+    </select>
+
+    <update id="editNews" parameterType="com.zyg.smt.model.News">
+        update news set n_addTime=#{n_addTime},n_content=#{n_content},n_alter=#{n_alter},n_author=#{n_author},
+                        n_likes=#{n_likes},n_mainImg=#{n_mainImg},n_title=#{n_title},n_views=#{n_views} where n_id=#{n_id}
+    </update>
+</mapper>
